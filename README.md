@@ -1,2 +1,4 @@
-# chart-generator
-Dynamically generating charts from user inputs
+# Chart Generator
+Dynamically generating charts in Javascript from user inputs.
+
+Available at [chart.misterhay.com].
