@@ -9,14 +9,12 @@
 <div id="formDiv">
     <form id="form">
         <label><i>x</i> values</label>
-        <br>
         <div style="font-size:50%">separated by commas</div>
         <textarea id="x" name="x">Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec</textarea>
         <br>
         <label><i>y</i> values</label>
-        <br>
         <div style="font-size:50%">separated by commas</div>
-        <textarea id="y" name="y"></textarea>
+        <textarea id="y" name="y">12, 18, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21</textarea>
         <br>
         <label><i>x</i> title</label>
         <br>
@@ -50,7 +48,7 @@ element.addEventListener("submit", function(event) {
 
     var ydict = {
     x: x_values.split(","),
-    y: [12, 18, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21],
+    y: y_values.split(","),
     //name: 'Precipitation',
     type: 'bar',
     marker: {color: 'blue'}
