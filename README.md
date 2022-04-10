@@ -1,4 +1,4 @@
 # Chart Generator
 Dynamically generating charts in Javascript from user inputs.
 
-Available at [chart.misterhay.com].
+Available at [chart.misterhay.com](http://chart.misterhay.com).
