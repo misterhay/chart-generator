@@ -28,6 +28,10 @@
         <br>
         <input id="title" name="title" type="text" value="y vs. x">
         <br><br>
+        <label>Marker Color</label>
+        <br>
+        <input type="color" id="markerColor" name="markerColor" value="#636EFA">
+        <br><br>
         <label>Chart Type</label>
         <br>
         <select id="chartType" name="chartType">
@@ -42,6 +46,7 @@
             <option value="contour">contour</option>
         </select>
         <br><br>
+        
 
         <br><br>
         <input type="submit" value="Submit">
@@ -50,6 +55,14 @@
 <div id="chartDiv"></div>
 
 <script>
+function colorPickerFunction() {
+  var marker_color = document.querySelector("#colorWell");
+  marker_color.value = defaultColor;
+  marker_color.addEventListener("input", updateFirst, false);
+  marker_color.addEventListener("change", updateAll, false);
+  marker_color.select();
+}
+
 var element = document.getElementById("form");
 element.addEventListener("submit", function(event) {
     event.preventDefault();
@@ -59,6 +72,7 @@ element.addEventListener("submit", function(event) {
     var y_title = document.getElementById("ytitle").value;
     var title_value = document.getElementById("title").value;
     var chart_type = document.getElementById("chartType").value;
+    var marker_color = document.getElementById("markerColor").value;
     //document.getElementById("testing").innerText = x_values+y_values;
 
     var data1 = {
@@ -66,7 +80,7 @@ element.addEventListener("submit", function(event) {
         y: y_values.split(","),
         //name: 'Precipitation',
         type: chart_type,
-        //marker: {color: 'blue'}
+        marker: {color: marker_color}
     };
 
     var layout = {
@@ -76,7 +90,6 @@ element.addEventListener("submit", function(event) {
     };
     
     if (chart_type == "pie") {
-        document.getElementById("testing").innerText = "pie";
         var data1 = {
             labels: x_values.split(","),
             values: y_values.split(","),
