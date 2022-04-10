@@ -8,7 +8,7 @@
 
 <div id="formDiv">
     <form id="form">
-        <label><i>x</i> values</label>
+        <label><i>x</i> values or labels</label>
         <div style="font-size:50%">separated by commas</div>
         <textarea id="x" name="x">Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec</textarea>
         <br><br>
@@ -16,7 +16,7 @@
         <div style="font-size:50%">separated by commas</div>
         <textarea id="y" name="y">12, 18, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21</textarea>
         <br><br>
-        <label><i>x</i> title</label>
+        <label><i>x</i> title or legend title</label>
         <br>
         <input id="xtitle" name="xtitle" type="text" value="x">
         <br><br>
@@ -62,11 +62,11 @@ element.addEventListener("submit", function(event) {
     //document.getElementById("testing").innerText = x_values+y_values;
 
     var data1 = {
-    x: x_values.split(","),
-    y: y_values.split(","),
-    //name: 'Precipitation',
-    type: chart_type,
-    //marker: {color: 'blue'}
+        x: x_values.split(","),
+        y: y_values.split(","),
+        //name: 'Precipitation',
+        type: chart_type,
+        //marker: {color: 'blue'}
     };
 
     var layout = {
@@ -74,6 +74,23 @@ element.addEventListener("submit", function(event) {
         xaxis: {title: x_title},
         yaxis: {title: y_title}
     };
+    
+    if (chart_type == "pie") {
+        document.getElementById("testing").innerText = "pie";
+        var data1 = {
+            labels: x_values.split(","),
+            values: y_values.split(","),
+            type: chart_type
+        };
+        if (x_title == "x") {x_title = "";} // so that we don't have a legend title of "x"
+        var layout = {
+            title: title_value,
+            showlegend: true,
+            legend: {
+                title: {text: x_title}
+            }
+        };
+    }
 
     Plotly.newPlot('chartDiv', [data1], layout);
 }, true);
