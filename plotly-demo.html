@@ -11,23 +11,37 @@
         <label><i>x</i> values</label>
         <div style="font-size:50%">separated by commas</div>
         <textarea id="x" name="x">Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec</textarea>
-        <br>
+        <br><br>
         <label><i>y</i> values</label>
         <div style="font-size:50%">separated by commas</div>
         <textarea id="y" name="y">12, 18, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21</textarea>
-        <br>
+        <br><br>
         <label><i>x</i> title</label>
         <br>
         <input id="xtitle" name="xtitle" type="text" value="x">
-        <br>
+        <br><br>
         <label><i>y</i> title</label>
         <br>
         <input id="ytitle" name="ytitle" type="text" value="y">
-        <br>
+        <br><br>
         <label>Chart Title</label>
         <br>
         <input id="title" name="title" type="text" value="y vs. x">
+        <br><br>
+        <label>Chart Type</label>
         <br>
+        <select id="chartType" name="chartType">
+            <option value="scatter">scatter</option>
+            <option value="bar">bar</option>
+            <option value="line">line</option>
+            <option value="pie">pie</option>
+            <option value="box">box</option>
+            <option value="histogram">histogram</option>
+            <option value="heatmap">heatmap</option>
+            <option value="surface">surface</option>
+            <option value="contour">contour</option>
+        </select>
+        <br><br>
 
         <br><br>
         <input type="submit" value="Submit">
@@ -44,23 +58,24 @@ element.addEventListener("submit", function(event) {
     var x_title = document.getElementById("xtitle").value;
     var y_title = document.getElementById("ytitle").value;
     var title_value = document.getElementById("title").value;
+    var chart_type = document.getElementById("chartType").value;
     //document.getElementById("testing").innerText = x_values+y_values;
 
-    var ydict = {
+    var data1 = {
     x: x_values.split(","),
     y: y_values.split(","),
     //name: 'Precipitation',
-    type: 'bar',
-    marker: {color: 'blue'}
+    type: chart_type,
+    //marker: {color: 'blue'}
     };
 
-    var data = [ydict];
     var layout = {
         title: title_value,
         xaxis: {title: x_title},
         yaxis: {title: y_title}
     };
-    Plotly.newPlot('chartDiv', data, layout);
+
+    Plotly.newPlot('chartDiv', [data1], layout);
 }, true);
 
 
