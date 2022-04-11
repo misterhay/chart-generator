@@ -10,11 +10,11 @@
     <form id="form">
         <label><i>x</i> values or labels</label>
         <div style="font-size:50%">separated by commas</div>
-        <textarea id="x" name="x">Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec</textarea>
+        <textarea id="x" name="x">Mon, Tues, Wed, hurs, Fri</textarea>
         <br><br>
         <label><i>y</i> values</label>
         <div style="font-size:50%">separated by commas</div>
-        <textarea id="y" name="y">12, 18, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21</textarea>
+        <textarea id="y" name="y">5,7,3,9,11</textarea>
         <br><br>
         <label><i>x</i> title or legend title</label>
         <br>
@@ -35,15 +35,10 @@
         <label>Chart Type</label>
         <br>
         <select id="chartType" name="chartType">
-            <option value="scatter">scatter</option>
             <option value="bar">bar</option>
+            <option value="scatter">scatter</option>
             <option value="line">line</option>
             <option value="pie">pie</option>
-            <option value="box">box</option>
-            <option value="histogram">histogram</option>
-            <option value="heatmap">heatmap</option>
-            <option value="surface">surface</option>
-            <option value="contour">contour</option>
         </select>
         <br><br>
         
@@ -52,6 +47,8 @@
         <input type="submit" value="Submit">
    </form>
 </div>
+<br>
+<div id="instructions"></div>
 <div id="chartDiv"></div>
 
 <script>
@@ -74,6 +71,8 @@ element.addEventListener("submit", function(event) {
     var chart_type = document.getElementById("chartType").value;
     var marker_color = document.getElementById("markerColor").value;
     //document.getElementById("testing").innerText = x_values+y_values;
+    document.getElementById("instructions").innerText = "Click the 📸 icon at the top right to download.";
+    
 
     var data1 = {
         x: x_values.split(","),
@@ -82,6 +81,10 @@ element.addEventListener("submit", function(event) {
         type: chart_type,
         marker: {color: marker_color}
     };
+
+    if (chart_type == 'scatter') {
+        data1["mode"] = 'markers';
+    }
 
     var layout = {
         title: title_value,
