@@ -28,7 +28,7 @@
     <div id="formDiv">
         <form id="chartForm">
             <div style="text-align:center;">
-            <input type="submit" value="Update Chart" style="background-color:#F6F1F4;">
+            <input type="submit" id="submit1" value="Generate Chart" style="background-color:#F6F1F4;">
             </div>
             <div class="column" style="background-color:#F6F1F4;" id="column1">
             <label>Independent (<i>x</i>) Values or Labels</label>
@@ -46,7 +46,7 @@
             <label>Show Legend</label>
             <input type="checkbox" id="legendToggle" name="legendToggle" value="false">
             <br><br>
-            <input type="submit" value="Update Chart" style="background-color:#F6F1F4;">
+            <input type="submit" id="submit2" value="Generate Chart" style="background-color:#F6F1F4;">
         </div>
         <div class="column" style="background-color:#636EFA;"  id="column2">
             <label style="background-color:#FFFFFF;padding:10px;">Dependent (<i>y</i>) Values</label>
@@ -103,21 +103,18 @@ window.addEventListener("load", colorPickerFunction, false);
 function colorPickerFunction() {
     var marker_color_picker = document.getElementById("markerColor");
     var marker_color_picker2 = document.getElementById("markerColor2");
-    //var marker_color_value = marker_color_picker.value;
-    //var marker_color_value2 = marker_color_picker2.value;
     marker_color_picker.addEventListener("input", updateColors, false);
     marker_color_picker2.addEventListener("input", updateColors, false);
     marker_color_picker.addEventListener("change", updateColors, false);
     marker_color_picker2.addEventListener("change", updateColors, false);
-    //marker_color_picker.select();
-}//*/
+}
 
 function updateColors() {
     var marker_color = document.getElementById("markerColor").value;
     var marker_color2 = document.getElementById("markerColor2").value;
     document.getElementById("column2").style.backgroundColor = marker_color;
     document.getElementById("column3").style.backgroundColor = marker_color2;
-    //document.getElementById("chartForm").submit();
+    document.getElementById("submit1").click();
 }
 
 var formElement = document.getElementById("chartForm");
@@ -135,7 +132,10 @@ formElement.addEventListener("submit", function(event) {
     var marker_color = document.getElementById("markerColor").value;
     var marker_color2 = document.getElementById("markerColor2").value;
     var showLegend = document.getElementById("legendToggle").checked;
+
     document.getElementById("instructions").innerText = "Click the 📸 icon at the top right of the chart to download.";
+    document.getElementById("submit1").value = "Update Chart";
+    document.getElementById("submit2").value = "Update Chart";
     
     var data1 = {
         x: x_values.split(","),
