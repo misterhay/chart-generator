@@ -27,6 +27,9 @@
 <div class="row">
     <div id="formDiv">
         <form id="form">
+            <div style="text-align:center;">
+                <input type="submit" value="Update Chart" style="background-color:#F6F1F4;">
+            </div>
             <div class="column" style="background-color:#F6F1F4;">
             <label>Independent (<i>x</i>) Values or Labels</label>
             <div style="font-size:50%">separated by commas</div>
@@ -85,15 +88,9 @@
             <br>
             <input type="color" id="markerColor2" name="markerColor2" value="#F1553B">
         </div>
-
-        <div style="text-align:center;">
-            <input type="submit" value="Update Chart" style="height:50px; width:100px; background-color:#F6F1F4;">
-        </div>
     </form>
     </div>
 </div>
-<br>
-
 
 <script>
 /*
@@ -169,8 +166,6 @@ element.addEventListener("submit", function(event) {
         Plotly.newPlot('chartDiv', [data1, data2], layout);
     }
 }, true);
-
-
 
 </script>
 </body>
