@@ -8,15 +8,15 @@
           box-sizing: border-box;
         }
         .column {
-          float: left;
-          width: 50%;
-          padding: 10px;
-          height: 300px;
+            float: left;
+            width: 33.333%;
+            padding: 10px;
+            height: 300px;
         }
         .row:after {
-          content: "";
-          display: table;
-          clear: both;
+            content: "";
+            display: table;
+            clear: both;
         }
     </style>
 </head>
@@ -27,18 +27,27 @@
 <div class="row">
     <div id="formDiv">
         <form id="form">
-            <div class="column" style="background-color:rgb(4, 191, 248);">
-            <label>Independent (<i>x</i>) values or labels</label>
+            <div class="column" style="background-color:#F6F1F4;">
+            <label>Independent (<i>x</i>) Values or Labels</label>
             <div style="font-size:50%">separated by commas</div>
             <textarea id="x" name="x">Mon, Tues, Wed, Thurs, Fri</textarea>
             <br><br>
-            <label>Independent (<i>x</i>) axis title</label>
+            <label>Independent (<i>x</i>) Axis Title</label>
             <br>
             <input id="xtitle" name="xtitle" type="text" value="x">
             <br><br>
             <label>Chart Title</label>
             <br>
             <input id="title" name="title" type="text" value="y vs. x">
+        </div>
+        <div class="column" style="background-color:#F8F8FF;">
+            <label>Dependent (<i>y</i>) Values</label>
+            <div style="font-size:50%">separated by commas</div>
+            <textarea id="y" name="y">5,7,3,9,11</textarea>
+            <br><br>
+            <label>Dependent (<i>y</i>) Axis Title</label>
+            <br>
+            <input id="ytitle" name="ytitle" type="text" value="y">
             <br><br>
             <label>Chart Type</label>
             <br>
@@ -49,25 +58,36 @@
                 <option value="pie">pie</option>
             </select>
             <br><br>
-            
-        </div>
-        <div class="column" style="background-color:#bbb;">
-            <label>Dependent (<i>y</i>) values</label>
-            <div style="font-size:50%">separated by commas</div>
-            <textarea id="y" name="y">5,7,3,9,11</textarea>
-            <br><br>
-            <label>Dependent (<i>y</i>) axis title</label>
-            <br>
-            <input id="ytitle" name="ytitle" type="text" value="y">
-            <br><br>
             <label>Marker Color</label>
             <br>
             <input type="color" id="markerColor" name="markerColor" value="#636EFA">
+        </div>
+            
+        <div class="column" style="background-color:#F6F1F4;">
+            <label>Dependent (<i>y</i>) Values 2</label>
+            <div style="font-size:50%">optional, separated by commas</div>
+            <textarea id="y2" name="y"></textarea>
             <br><br>
+            <label>Dependent (<i>y</i>) Axis Title 2</label>
+            <br>
+            <input id="y2title" name="y2title" type="text" value="">
+            <br><br>
+            <label>Chart Type</label>
+            <br>
+            <select id="chartType2" name="chartType2">
+                <option value="bar">bar</option>
+                <option value="scatter">scatter</option>
+                <option value="line">line</option>
+                <option value="pie">pie</option>
+            </select>
+            <br><br>
+            <label>Marker Color</label>
+            <br>
+            <input type="color" id="markerColor2" name="markerColor2" value="#F1553B">
         </div>
 
         <div style="text-align:center;">
-            <input type="submit" value="Update Chart" style="height:50px; width:100px; background-color:#FFFFFF;">
+            <input type="submit" value="Update Chart" style="height:50px; width:100px; background-color:#F6F1F4;">
         </div>
     </form>
     </div>
@@ -77,24 +97,29 @@
 <div id="chartDiv"></div>
 
 <script>
+/*
 function colorPickerFunction() {
   var marker_color = document.querySelector("#colorWell");
   marker_color.value = defaultColor;
   marker_color.addEventListener("input", updateFirst, false);
   marker_color.addEventListener("change", updateAll, false);
   marker_color.select();
-}
+}//*/
 
 var element = document.getElementById("form");
 element.addEventListener("submit", function(event) {
     event.preventDefault();
     var x_values = document.getElementById("x").value;//.replace(/,\s/g, ',');
     var y_values = document.getElementById("y").value;//.replace(/,\s/g, ',');
+    var y2_values = document.getElementById("y2").value;//.replace(/,\s/g, ',');
     var x_title = document.getElementById("xtitle").value;
     var y_title = document.getElementById("ytitle").value;
+    var y2_title = document.getElementById("y2title").value;
     var title_value = document.getElementById("title").value;
     var chart_type = document.getElementById("chartType").value;
+    var chart_type2 = document.getElementById("chartType2").value;
     var marker_color = document.getElementById("markerColor").value;
+    var marker_color2 = document.getElementById("markerColor2").value;
     //document.getElementById("testing").innerText = x_values+y_values;
     document.getElementById("instructions").innerText = "Click the 📸 icon at the top right of the chart to download.";
     
@@ -102,9 +127,17 @@ element.addEventListener("submit", function(event) {
     var data1 = {
         x: x_values.split(","),
         y: y_values.split(","),
-        //name: 'Precipitation',
+        name: y_title,
         type: chart_type,
         marker: {color: marker_color}
+    };
+
+    var data2 = {
+        x: x_values.split(","),
+        y: y2_values.split(","),
+        name: y2_title,
+        type: chart_type2,
+        marker: {color: marker_color2}
     };
 
     if (chart_type == 'scatter') {
@@ -133,7 +166,11 @@ element.addEventListener("submit", function(event) {
         };
     }
 
-    Plotly.newPlot('chartDiv', [data1], layout);
+    if (y2_values == "") {
+        Plotly.newPlot('chartDiv', [data1], layout);
+    } else {
+        Plotly.newPlot('chartDiv', [data1, data2], layout);
+    }
 }, true);
 
 
