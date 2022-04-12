@@ -10,7 +10,7 @@
         .column {
             float: left;
             width: 33.333%;
-            padding: 10px;
+            padding: 15px;
             height: 300px;
         }
         .row:after {
@@ -28,9 +28,9 @@
     <div id="formDiv">
         <form id="form">
             <div style="text-align:center;">
-                <input type="submit" value="Update Chart" style="background-color:#F6F1F4;">
+            <input type="submit" value="Update Chart" style="background-color:#F6F1F4;">
             </div>
-            <div class="column" style="background-color:#F6F1F4;">
+            <div class="column" style="background-color:#F6F1F4;" id="column1">
             <label>Independent (<i>x</i>) Values or Labels</label>
             <div style="font-size:50%">separated by commas</div>
             <textarea id="x" name="x">Mon, Tues, Wed, Thurs, Fri</textarea>
@@ -43,7 +43,7 @@
             <br>
             <input id="title" name="title" type="text" value="y vs. x">
         </div>
-        <div class="column" style="background-color:#F8F8FF;">
+        <div class="column" style="background-color:#F8F8FF;"  id="column2">
             <label>Dependent (<i>y</i>) Values</label>
             <div style="font-size:50%">separated by commas</div>
             <textarea id="y" name="y">5,7,3,9,11</textarea>
@@ -65,8 +65,7 @@
             <br>
             <input type="color" id="markerColor" name="markerColor" value="#636EFA">
         </div>
-            
-        <div class="column" style="background-color:#F6F1F4;">
+        <div class="column" style="background-color:#F6F1F4;"  id="column3">
             <label>Dependent (<i>y</i>) Values 2</label>
             <div style="font-size:50%">optional, separated by commas</div>
             <textarea id="y2" name="y"></textarea>
