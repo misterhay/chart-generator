@@ -173,7 +173,7 @@ formElement.addEventListener("submit", function(event) {
         if (x_title == "x") {x_title = "";} // so that we don't have a legend title of "x"
         var layout = {
             title: title_value,
-            showlegend: true,
+            showlegend: showLegend,
             legend: {
                 title: {text: x_title}
             }
