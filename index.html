@@ -44,6 +44,9 @@
             <br><br>
             <label>Show Legend</label>
             <input type="checkbox" id="legendToggle" name="legendToggle" value="false">
+            <br>
+            <label>Stack</label>
+            <input type="checkbox" id="stackToggle" name="stackToggle" value="false">
             <br><br>
             <input type="submit" id="submit2" value="Generate Chart" style="background-color:#F6F1F4;">
         </div>
@@ -131,6 +134,7 @@ formElement.addEventListener("submit", function(event) {
     var marker_color = document.getElementById("markerColor").value;
     var marker_color2 = document.getElementById("markerColor2").value;
     var showLegend = document.getElementById("legendToggle").checked;
+    var stackToggle = document.getElementById("stackToggle").checked;
 
     document.getElementById("instructions").innerText = "Click the 📸 icon at the top right of the chart to download.";
     document.getElementById("submit1").value = "Update Chart"; // change the button text
@@ -177,6 +181,10 @@ formElement.addEventListener("submit", function(event) {
                 title: {text: x_title}
             }
         };
+    }
+
+    if (stackToggle) {
+        layout["barmode"] = "stack"; // the default is group
     }
 
     if (y2_values == "") {
