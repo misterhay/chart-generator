@@ -187,7 +187,8 @@ formElement.addEventListener("submit", function(event) {
         layout["barmode"] = "stack"; // the default is group
     }
 
-    var config = {responsive: true, editable: true};
+    var config = {responsive:true, editable:true, 
+        showLink:true, plotlyServerURL:"https://chart-studio.plotly.com", linkText:"Edit in Plotly Studio"};
 
     if (y2_values == "") {
         Plotly.newPlot('chartDiv', [data1], layout, config);  // if there are no y2 values to chart then just chart the first data set
