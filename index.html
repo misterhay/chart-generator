@@ -4,9 +4,7 @@
 <head>
     <script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script>
     <style>
-        * {
-          box-sizing: border-box;
-        }
+        * {box-sizing: border-box;}
         .column {
             float: left;
             width: 33.333%;
@@ -98,7 +96,7 @@
 
 <script>
 
-window.addEventListener("load", colorPickerFunction, false);
+window.addEventListener("load", colorPickerFunction, false); // run the function when the page loads
 
 function colorPickerFunction() {
     var marker_color_picker = document.getElementById("markerColor");
@@ -114,12 +112,13 @@ function updateColors() {
     var marker_color2 = document.getElementById("markerColor2").value;
     document.getElementById("column2").style.backgroundColor = marker_color;
     document.getElementById("column3").style.backgroundColor = marker_color2;
-    document.getElementById("submit1").click();
+    document.getElementById("submit1").click(); // regenerate the chart
 }
 
 var formElement = document.getElementById("chartForm");
 formElement.addEventListener("submit", function(event) {
     event.preventDefault();
+    // collect the form data
     var x_values = document.getElementById("x").value;//.replace(/,\s/g, ',');
     var y_values = document.getElementById("y").value;//.replace(/,\s/g, ',');
     var y2_values = document.getElementById("y2").value;//.replace(/,\s/g, ',');
@@ -134,7 +133,7 @@ formElement.addEventListener("submit", function(event) {
     var showLegend = document.getElementById("legendToggle").checked;
 
     document.getElementById("instructions").innerText = "Click the 📸 icon at the top right of the chart to download.";
-    document.getElementById("submit1").value = "Update Chart";
+    document.getElementById("submit1").value = "Update Chart"; // change the button text
     document.getElementById("submit2").value = "Update Chart";
     
     var data1 = {
@@ -154,7 +153,7 @@ formElement.addEventListener("submit", function(event) {
     };
 
     if (chart_type == 'scatter') {
-        data1["mode"] = 'markers';
+        data1["mode"] = 'markers'; // so we don't get a line connecting the points
     }
 
     var layout = {
@@ -164,7 +163,7 @@ formElement.addEventListener("submit", function(event) {
         showlegend: showLegend,
     };
     
-    if (chart_type == "pie") {
+    if (chart_type == "pie") { // since we need to use "lables" and "values" instead of x and y
         var data1 = {
             labels: x_values.split(","),
             values: y_values.split(","),
@@ -181,7 +180,7 @@ formElement.addEventListener("submit", function(event) {
     }
 
     if (y2_values == "") {
-        Plotly.newPlot('chartDiv', [data1], layout);
+        Plotly.newPlot('chartDiv', [data1], layout);  // if there are no y2 values to chart then just chart the first data set
     } else {
         Plotly.newPlot('chartDiv', [data1, data2], layout);
     }
