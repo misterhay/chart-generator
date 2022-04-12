@@ -1,54 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <html>
-<head><script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script></head>
+<head>
+    <script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+        .column {
+          float: left;
+          width: 50%;
+          padding: 10px;
+          height: 300px;
+        }
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+    </style>
+</head>
 <body>
 
 <div id="testing"></div>
 
-<div id="formDiv">
-    <form id="form">
-        <label>Independent (<i>x</i>) values or labels</label>
-        <div style="font-size:50%">separated by commas</div>
-        <textarea id="x" name="x">Mon, Tues, Wed, Thurs, Fri</textarea>
-        <br><br>
-        <label>Dependent (<i>y</i>) values</label>
-        <div style="font-size:50%">separated by commas</div>
-        <textarea id="y" name="y">5,7,3,9,11</textarea>
-        <br><br>
-        <label><i>x</i> title or legend title</label>
-        <br>
-        <input id="xtitle" name="xtitle" type="text" value="x">
-        <br><br>
-        <label><i>y</i> title</label>
-        <br>
-        <input id="ytitle" name="ytitle" type="text" value="y">
-        <br><br>
-        <label>Chart Title</label>
-        <br>
-        <input id="title" name="title" type="text" value="y vs. x">
-        <br><br>
-        <label>Marker Color</label>
-        <br>
-        <input type="color" id="markerColor" name="markerColor" value="#636EFA">
-        <br><br>
-        <label>Chart Type</label>
-        <br>
-        <select id="chartType" name="chartType">
-            <option value="bar">bar</option>
-            <option value="scatter">scatter</option>
-            <option value="line">line</option>
-            <option value="pie">pie</option>
-        </select>
-        <br><br>
-        
+<div class="row">
+    <div id="formDiv">
+        <form id="form">
+            <div class="column" style="background-color:rgb(4, 191, 248);">
+            <label>Independent (<i>x</i>) values or labels</label>
+            <div style="font-size:50%">separated by commas</div>
+            <textarea id="x" name="x">Mon, Tues, Wed, Thurs, Fri</textarea>
+            <br><br>
+            <label>Independent (<i>x</i>) axis title</label>
+            <br>
+            <input id="xtitle" name="xtitle" type="text" value="x">
+            <br><br>
+            <label>Chart Title</label>
+            <br>
+            <input id="title" name="title" type="text" value="y vs. x">
+            <br><br>
+            <label>Chart Type</label>
+            <br>
+            <select id="chartType" name="chartType">
+                <option value="bar">bar</option>
+                <option value="scatter">scatter</option>
+                <option value="line">line</option>
+                <option value="pie">pie</option>
+            </select>
+            <br><br>
+            
+        </div>
+        <div class="column" style="background-color:#bbb;">
+            <label>Dependent (<i>y</i>) values</label>
+            <div style="font-size:50%">separated by commas</div>
+            <textarea id="y" name="y">5,7,3,9,11</textarea>
+            <br><br>
+            <label>Dependent (<i>y</i>) axis title</label>
+            <br>
+            <input id="ytitle" name="ytitle" type="text" value="y">
+            <br><br>
+            <label>Marker Color</label>
+            <br>
+            <input type="color" id="markerColor" name="markerColor" value="#636EFA">
+            <br><br>
+        </div>
 
-        <br><br>
-        <input type="submit" value="Submit">
-   </form>
+        <div style="text-align:center;">
+            <input type="submit" value="Update Chart" style="height:50px; width:100px; background-color:#FFFFFF;">
+        </div>
+    </form>
+    </div>
 </div>
 <br>
-<div id="instructions"></div>
+<div id="instructions" style="text-align:center;color:lightgrey"></div>
 <div id="chartDiv"></div>
 
 <script>
@@ -71,7 +96,7 @@ element.addEventListener("submit", function(event) {
     var chart_type = document.getElementById("chartType").value;
     var marker_color = document.getElementById("markerColor").value;
     //document.getElementById("testing").innerText = x_values+y_values;
-    document.getElementById("instructions").innerText = "Click the 📸 icon at the top right to download.";
+    document.getElementById("instructions").innerText = "Click the 📸 icon at the top right of the chart to download.";
     
 
     var data1 = {
