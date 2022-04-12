@@ -20,9 +20,9 @@
         }
     </style>
 </head>
-<body>
-
-<div id="testing"></div>
+<body>    
+<div id="chartDiv"></div>
+<div id="instructions" style="text-align:center;color:lightgrey"></div>
 
 <div class="row">
     <div id="formDiv">
@@ -93,8 +93,7 @@
     </div>
 </div>
 <br>
-<div id="instructions" style="text-align:center;color:lightgrey"></div>
-<div id="chartDiv"></div>
+
 
 <script>
 /*
@@ -120,10 +119,8 @@ element.addEventListener("submit", function(event) {
     var chart_type2 = document.getElementById("chartType2").value;
     var marker_color = document.getElementById("markerColor").value;
     var marker_color2 = document.getElementById("markerColor2").value;
-    //document.getElementById("testing").innerText = x_values+y_values;
     document.getElementById("instructions").innerText = "Click the 📸 icon at the top right of the chart to download.";
     
-
     var data1 = {
         x: x_values.split(","),
         y: y_values.split(","),
