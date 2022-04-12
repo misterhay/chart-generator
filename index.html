@@ -43,6 +43,9 @@
             <br>
             <input id="title" name="title" type="text" value="y vs. x">
             <br><br>
+            <label>Show Legend</label>
+            <input type="checkbox" id="legendToggle" name="legendToggle" value="false">
+            <br><br>
             <input type="submit" value="Update Chart" style="background-color:#F6F1F4;">
         </div>
         <div class="column" style="background-color:#636EFA;"  id="column2">
@@ -131,6 +134,7 @@ formElement.addEventListener("submit", function(event) {
     var chart_type2 = document.getElementById("chartType2").value;
     var marker_color = document.getElementById("markerColor").value;
     var marker_color2 = document.getElementById("markerColor2").value;
+    var showLegend = document.getElementById("legendToggle").checked;
     document.getElementById("instructions").innerText = "Click the 📸 icon at the top right of the chart to download.";
     
     var data1 = {
@@ -156,7 +160,8 @@ formElement.addEventListener("submit", function(event) {
     var layout = {
         title: title_value,
         xaxis: {title: x_title},
-        yaxis: {title: y_title}
+        yaxis: {title: y_title},
+        showlegend: showLegend,
     };
     
     if (chart_type == "pie") {
