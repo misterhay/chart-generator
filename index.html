@@ -26,7 +26,7 @@
 
 <div class="row">
     <div id="formDiv">
-        <form id="form">
+        <form id="chartForm">
             <div style="text-align:center;">
             <input type="submit" value="Update Chart" style="background-color:#F6F1F4;">
             </div>
@@ -42,17 +42,19 @@
             <label>Chart Title</label>
             <br>
             <input id="title" name="title" type="text" value="y vs. x">
+            <br><br>
+            <input type="submit" value="Update Chart" style="background-color:#F6F1F4;">
         </div>
         <div class="column" style="background-color:#636EFA;"  id="column2">
-            <label style="background-color:#FFFFFF;">Dependent (<i>y</i>) Values</label>
+            <label style="background-color:#FFFFFF;padding:10px;">Dependent (<i>y</i>) Values</label>
             <div style="font-size:50%">separated by commas</div>
             <textarea id="y" name="y">5,7,3,9,11</textarea>
             <br><br>
-            <label style="background-color:#FFFFFF;">Dependent (<i>y</i>) Axis Title</label>
+            <label style="background-color:#FFFFFF;padding:10px;">Dependent (<i>y</i>) Axis Title</label>
             <br>
             <input id="ytitle" name="ytitle" type="text" value="y">
             <br><br>
-            <label style="background-color:#FFFFFF;">Chart Type</label>
+            <label style="background-color:#FFFFFF;padding:5px;">Chart Type</label>
             <br>
             <select id="chartType" name="chartType">
                 <option value="bar">bar</option>
@@ -61,20 +63,20 @@
                 <option value="pie">pie</option>
             </select>
             <br><br>
-            <label style="background-color:#FFFFFF;">Marker Color</label>
+            <label style="background-color:#FFFFFF;padding:5px;">Marker Color</label>
             <br>
             <input type="color" id="markerColor" name="markerColor" value="#636EFA">
         </div>
         <div class="column" style="background-color:#F1553B;"  id="column3">
-            <label style="background-color:#FFFFFF;">Dependent (<i>y</i>) Values 2</label>
+            <label style="background-color:#FFFFFF;padding:10px;">Dependent (<i>y</i>) Values 2</label>
             <div style="font-size:50%">optional, separated by commas</div>
             <textarea id="y2" name="y"></textarea>
             <br><br>
-            <label style="background-color:#FFFFFF;">Dependent (<i>y</i>) Axis Title 2</label>
+            <label style="background-color:#FFFFFF;padding:5px">Dependent (<i>y</i>) Axis Title 2</label>
             <br>
             <input id="y2title" name="y2title" type="text" value="">
             <br><br>
-            <label style="background-color:#FFFFFF;">Chart Type</label>
+            <label style="background-color:#FFFFFF;padding:5px;">Chart Type</label>
             <br>
             <select id="chartType2" name="chartType2">
                 <option value="bar">bar</option>
@@ -83,7 +85,7 @@
                 <option value="pie">pie</option>
             </select>
             <br><br>
-            <label style="background-color:#FFFFFF;">Marker Color</label>
+            <label style="background-color:#FFFFFF;padding:5px;">Marker Color</label>
             <br>
             <input type="color" id="markerColor2" name="markerColor2" value="#F1553B">
         </div>
@@ -98,8 +100,8 @@ window.addEventListener("load", colorPickerFunction, false);
 function colorPickerFunction() {
     var marker_color_picker = document.getElementById("markerColor");
     var marker_color_picker2 = document.getElementById("markerColor2");
-    var marker_color_value = marker_color_picker.value;
-    var marker_color_value2 = marker_color_picker2.value;
+    //var marker_color_value = marker_color_picker.value;
+    //var marker_color_value2 = marker_color_picker2.value;
     marker_color_picker.addEventListener("input", updateColors, false);
     marker_color_picker2.addEventListener("input", updateColors, false);
     marker_color_picker.addEventListener("change", updateColors, false);
@@ -112,9 +114,10 @@ function updateColors() {
     var marker_color2 = document.getElementById("markerColor2").value;
     document.getElementById("column2").style.backgroundColor = marker_color;
     document.getElementById("column3").style.backgroundColor = marker_color2;
+    //document.getElementById("chartForm").submit();
 }
 
-var formElement = document.getElementById("form");
+var formElement = document.getElementById("chartForm");
 formElement.addEventListener("submit", function(event) {
     event.preventDefault();
     var x_values = document.getElementById("x").value;//.replace(/,\s/g, ',');
