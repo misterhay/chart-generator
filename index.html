@@ -17,11 +17,12 @@
             clear: both;
         }
     </style>
+    <title>MisterHay's Chart Generator</title>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
 <body>    
 <div id="chartDiv"></div>
-<div id="instructions" style="text-align:center;color:lightgrey"></div>
+<div id="instructions" style="text-align:center;font-size:x-large">MisterHay's Chart Generator<br><br></div>
 
 <div class="row">
     <div id="formDiv">
@@ -137,6 +138,8 @@ formElement.addEventListener("submit", function(event) {
     var stackToggle = document.getElementById("stackToggle").checked;
 
     document.getElementById("instructions").innerText = "Click the 📸 icon at the top right of the chart to download.";
+    document.getElementById("instructions").style.color = "lightgrey";
+    document.getElementById("instructions").style.fontSize = "80%";
     document.getElementById("submit1").value = "Update Chart"; // change the button text
     document.getElementById("submit2").value = "Update Chart";
     
