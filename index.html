@@ -249,9 +249,10 @@ formElement.addEventListener("submit", function(event) {
 
         if (y2_values != "") {
             pythonCode += "y2 = [" + y2_values + "]<br>";
-            pythonCode += "fig.add_trace(go."+pythonChartType2+"(x=x, y=y2, name='"+y2_title+"', marker=dict(color='"+marker_color2+"')))<br>";
             if (chart_type2 == "scatter") {
-                pythonCode += "fig.update_traces(mode='markers') # remove the line connecting the points<br>";
+                pythonCode += "fig.add_trace(go."+pythonChartType2+"(x=x, y=y2, name='"+y2_title+"', marker=dict(color='"+marker_color2+"'), mode='markers'))<br>";
+            } else {
+                pythonCode += "fig.add_trace(go."+pythonChartType2+"(x=x, y=y2, name='"+y2_title+"', marker=dict(color='"+marker_color2+"')))<br>";
             }
         }
         pythonCode += "fig.update_xaxes(title_text='" + document.getElementById("xtitle").value + "')<br>";
