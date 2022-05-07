@@ -97,6 +97,9 @@
     </form>
     </div>
 </div>
+<br>
+<br>
+<div id="pythonDiv" style="font-family:monospace;white-space:pre"></div>
 
 <script>
 
@@ -119,9 +122,19 @@ function updateColors() {
     document.getElementById("submit1").click(); // regenerate the chart
 }
 
+function capitalizeFirstLetter(thing) {
+    return thing.toString().charAt(0).toUpperCase() + thing.toString().slice(1);
+}
+
 var formElement = document.getElementById("chartForm");
 formElement.addEventListener("submit", function(event) {
     event.preventDefault();
+
+    // start the Python code
+    var pythonCode = "# Python Code<br>";
+    pythonCode += "import plotly.graph_objects as go<br>";
+    pythonCode += "fig = go.Figure()<br>";
+
     // collect the form data
     var x_values = document.getElementById("x").value;//.replace(/,\s/g, ',');
     var y_values = document.getElementById("y").value;//.replace(/,\s/g, ',');
@@ -162,6 +175,9 @@ formElement.addEventListener("submit", function(event) {
     if (chart_type == 'scatter') {
         data1["mode"] = 'markers'; // so we don't get a line connecting the points
     }
+    if (chart_type2 == 'scatter') {
+        data2["mode"] = 'markers'; // so we don't get a line connecting the points
+    }
 
     var layout = {
         title: title_value,
@@ -199,6 +215,60 @@ formElement.addEventListener("submit", function(event) {
     } else {
         Plotly.newPlot('chartDiv', [data1, data2], layout, config);
     }
+
+    // continue the Python code
+    // add quotation marks around x values if they don't start with numbers
+    var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    var new_x_values = [];
+    for (var i = 0; i < x_values.split(",").length; i++) {
+        var x_value = x_values.split(",")[i].trim();
+        if (numbers.includes(x_value[0])) {
+            new_x_values.push(x_value);
+        } else {
+            new_x_values.push("'" + x_value + "'");
+        }
+    }
+    pythonCode += "x = [" + new_x_values + "]<br>";
+    pythonCode += "y = [" + y_values + "]<br>";
+    pythonChartType = capitalizeFirstLetter(chart_type);
+    pythonChartType2 = capitalizeFirstLetter(chart_type2);
+    if (chart_type == "line") {
+        var pythonChartType = "Scatter";
+    }
+    if (chart_type2 == "line") {
+        var pythonChartType2 = "Scatter";
+    }
+    
+    if (chart_type == "pie") {
+        pythonCode += "fig.add_trace(go.Pie(labels=x, values=y))<br>";
+    } else {
+        pythonCode += "fig.add_trace(go."+pythonChartType+"(x=x, y=y, name='"+y_title+"', marker=dict(color='"+marker_color+"')))<br>";
+        if (chart_type == "scatter") {
+            pythonCode += "fig.update_traces(mode='markers') # remove the line connecting the points<br>";
+        }
+
+        if (y2_values != "") {
+            pythonCode += "y2 = [" + y2_values + "]<br>";
+            pythonCode += "fig.add_trace(go."+pythonChartType2+"(x=x, y=y2, name='"+y2_title+"', marker=dict(color='"+marker_color2+"')))<br>";
+            if (chart_type2 == "scatter") {
+                pythonCode += "fig.update_traces(mode='markers') # remove the line connecting the points<br>";
+            }
+        }
+        pythonCode += "fig.update_xaxes(title_text='" + document.getElementById("xtitle").value + "')<br>";
+        pythonCode += "fig.update_yaxes(title_text='" + document.getElementById("ytitle").value + "')<br>";
+        }
+    if (showLegend) {
+        pythonCode += "fig.update_layout(title='"+title_value+"', showlegend=True)<br>";
+    } else {
+        pythonCode += "fig.update_layout(title='"+title_value+"', showlegend=False)<br>";
+    }
+    if (stackToggle) {
+        pythonCode += "fig.update_layout(barmode='stack')<br>";
+    }
+    pythonCode += "fig.show()";
+
+
+    document.getElementById("pythonDiv").innerHTML = pythonCode;
 }, true);
 
 </script>
