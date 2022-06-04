@@ -9,7 +9,7 @@
             float: left;
             width: 33.333%;
             padding: 15px;
-            height: 300px;
+            height: 320px;
         }
         .row:after {
             content: "";
@@ -32,12 +32,16 @@
             </div>
             <div class="column" style="background-color:#F6F1F4;" id="column1">
             <label>Independent (<i>x</i>) Values or Labels</label>
-            <div style="font-size:50%">separated by commas</div>
+            <div style="font-size:50%">&nbsp;separated by commas</div>
             <textarea id="x" name="x">Mon, Tues, Wed, Thurs, Fri</textarea>
             <br><br>
             <label>Independent (<i>x</i>) Axis Title</label>
             <br>
             <input id="xtitle" name="xtitle" type="text" value="x">
+            <br><br>
+            <label>Dependent (<i>y</i>) Axis Title</label>
+            <br>
+            <input id="ytitle" name="xtitle" type="text" value="y">
             <br><br>
             <label>Chart Title</label>
             <br>
@@ -53,12 +57,13 @@
         </div>
         <div class="column" style="background-color:#636EFA;"  id="column2">
             <label style="background-color:#FFFFFF;padding:10px;">Dependent (<i>y</i>) Values</label>
-            <div style="font-size:50%">separated by commas</div>
+            <div style="font-size:50%">&nbsp;separated by commas</div>
             <textarea id="y" name="y">5,7,3,9,11</textarea>
             <br><br>
-            <label style="background-color:#FFFFFF;padding:10px;">Dependent (<i>y</i>) Axis Title</label>
+            <label style="background-color:#FFFFFF;padding:10px;">Label for Legend</label>
             <br>
-            <input id="ytitle" name="ytitle" type="text" value="y">
+            <div style="font-size:50%">&nbsp;optional</div>
+            <input id="legend1" name="legend1" type="text" value="">
             <br><br>
             <label style="background-color:#FFFFFF;padding:5px;">Chart Type</label>
             <br>
@@ -75,12 +80,13 @@
         </div>
         <div class="column" style="background-color:#F1553B;"  id="column3">
             <label style="background-color:#FFFFFF;padding:10px;">Dependent (<i>y</i>) Values 2</label>
-            <div style="font-size:50%">optional, separated by commas</div>
+            <div style="font-size:50%">&nbsp;optional, separated by commas</div>
             <textarea id="y2" name="y"></textarea>
             <br><br>
-            <label style="background-color:#FFFFFF;padding:5px">Dependent (<i>y</i>) Axis Title 2</label>
+            <label style="background-color:#FFFFFF;padding:10px;">Label for Legend</label>
             <br>
-            <input id="y2title" name="y2title" type="text" value="">
+            <div style="font-size:50%">&nbsp;optional</div>
+            <input id="legend2" name="legend2" type="text" value="">
             <br><br>
             <label style="background-color:#FFFFFF;padding:5px;">Chart Type</label>
             <br>
@@ -141,7 +147,8 @@ formElement.addEventListener("submit", function(event) {
     var y2_values = document.getElementById("y2").value;//.replace(/,\s/g, ',');
     var x_title = document.getElementById("xtitle").value;
     var y_title = document.getElementById("ytitle").value;
-    var y2_title = document.getElementById("y2title").value;
+    var legend1 = document.getElementById("legend1").value;
+    var legend2 = document.getElementById("legend2").value;
     var title_value = document.getElementById("title").value;
     var chart_type = document.getElementById("chartType").value;
     var chart_type2 = document.getElementById("chartType2").value;
@@ -159,7 +166,7 @@ formElement.addEventListener("submit", function(event) {
     var data1 = {
         x: x_values.split(","),
         y: y_values.split(","),
-        name: y_title,
+        name: legend1,
         type: chart_type,
         marker: {color: marker_color}
     };
@@ -167,7 +174,7 @@ formElement.addEventListener("submit", function(event) {
     var data2 = {
         x: x_values.split(","),
         y: y2_values.split(","),
-        name: y2_title,
+        name: legend2,
         type: chart_type2,
         marker: {color: marker_color2}
     };
@@ -242,7 +249,7 @@ formElement.addEventListener("submit", function(event) {
     if (chart_type == "pie") {
         pythonCode += "fig.add_trace(go.Pie(labels=x, values=y))<br>";
     } else {
-        pythonCode += "fig.add_trace(go."+pythonChartType+"(x=x, y=y, name='"+y_title+"', marker=dict(color='"+marker_color+"')))<br>";
+        pythonCode += "fig.add_trace(go."+pythonChartType+"(x=x, y=y, name='"+legend1+"', marker=dict(color='"+marker_color+"')))<br>";
         if (chart_type == "scatter") {
             pythonCode += "fig.update_traces(mode='markers') # remove the line connecting the points<br>";
         }
@@ -250,9 +257,9 @@ formElement.addEventListener("submit", function(event) {
         if (y2_values != "") {
             pythonCode += "y2 = [" + y2_values + "]<br>";
             if (chart_type2 == "scatter") {
-                pythonCode += "fig.add_trace(go."+pythonChartType2+"(x=x, y=y2, name='"+y2_title+"', marker=dict(color='"+marker_color2+"'), mode='markers'))<br>";
+                pythonCode += "fig.add_trace(go."+pythonChartType2+"(x=x, y=y2, name='"+legend2+"', marker=dict(color='"+marker_color2+"'), mode='markers'))<br>";
             } else {
-                pythonCode += "fig.add_trace(go."+pythonChartType2+"(x=x, y=y2, name='"+y2_title+"', marker=dict(color='"+marker_color2+"')))<br>";
+                pythonCode += "fig.add_trace(go."+pythonChartType2+"(x=x, y=y2, name='"+legend2+"', marker=dict(color='"+marker_color2+"')))<br>";
             }
         }
         pythonCode += "fig.update_xaxes(title_text='" + document.getElementById("xtitle").value + "')<br>";
